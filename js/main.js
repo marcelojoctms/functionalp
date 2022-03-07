@@ -9,13 +9,31 @@ const compose = (...functions) => data =>
 
 
 // VARIABLES DE LOS INPUTS
-let Description = document.getElementById('Descripcion');
-let Calories = document.getElementById('Calorias'); 
-let Carbs = document.getElementById('Carbs');
-let Proteinas = document.getElementById('Protein');
+let Description = document.getElementById('description');
+let Calories = document.getElementById('calories'); 
+let Carbs = document.getElementById('carbs');
+let Proteinas = document.getElementById('protein');
 
 // VALORES DE LOS INPUTS
-Description.value;
-Calories.value;
-Carbs.value;
-Proteinas.value;
+// Description.value;
+// Calories.value;
+// Carbs.value;
+// Proteinas.value;
+Description.addEventListener('keydown', () => Description.classList.remove('is-invalid'))
+Calories.addEventListener('keydown', () => Calories.classList.remove('is-invalid'))
+Carbs.addEventListener('keydown', () => Carbs.classList.remove('is-invalid'))
+Proteinas.addEventListener('keydown', () => Proteinas.classList.remove('is-invalid'))
+
+const validateInputs = () =>{
+
+  Description.value ? '' : Description.classList.add('is-invalid'); 
+  Calories.value ? '' :  Calories.classList.add('is-invalid'); 
+  Carbs.value ? '' : Carbs.classList.add('is-invalid'); 
+  Proteinas.value ? '' : Proteinas.classList.add('is-invalid'); 
+
+  if(Description.value && Calories.value && Carbs.value && Proteinas.value) {
+    console.log('OK!')
+  }
+
+}
+
