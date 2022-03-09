@@ -14,6 +14,14 @@ let Calories = document.getElementById('calories');
 let Carbs = document.getElementById('carbs');
 let Proteinas = document.getElementById('protein');
 
+let list = [
+    {
+      description: 'wewe',
+      calories: 'wewe',
+      carbs: 'wewe',
+      protein: 'wewe',
+    }
+]
 // VALORES DE LOS INPUTS
 // Description.value;
 // Calories.value;
@@ -32,8 +40,29 @@ const validateInputs = () =>{
   Proteinas.value ? '' : Proteinas.classList.add('is-invalid'); 
 
   if(Description.value && Calories.value && Carbs.value && Proteinas.value) {
-    console.log('OK!')
+    add();
   }
 
 }
 
+const add = () =>{ // hago un objeto con los datois que obtengo del form
+
+  const newItem= {
+    description: Description.value,
+    calories: Calories.value,
+    carbs: Carbs.value,
+    protein: Proteinas.value,
+  }
+
+  list.push(newItem);
+  console.log(list)
+  cleanInputs();
+  
+}
+
+const cleanInputs = () => {
+Description.value = '';
+Calories.value = '';
+Carbs.value = '';
+Proteinas.value = '';
+}
