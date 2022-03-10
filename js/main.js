@@ -39,7 +39,8 @@ const tableRow = items => compose(tableRowTag, tableCells)(items)
 
 const tableCell = tag('td')
 const tableCells = items => items.map(tableCell).join('')
-
+// genero el icono
+const trashIcon = tag({tag: 'i', attrs: {class: 'fas fa-trash-alt'}})('')
 // VARIABLES DE LOS INPUTS
 let Description = document.getElementById('description');
 let Calories = document.getElementById('calories'); 
@@ -90,6 +91,15 @@ const add = () =>{ // hago un objeto con los datois que obtengo del form
   console.log(list)
   cleanInputs();
   updateTotals();
+  renderItems();
+}
+
+// remover items
+const removeItem = (index) => {
+  list.splice(index, 1)
+
+  updateTotals()
+  renderItems()
 }
 
 // esta funcion va a actualziar los valores de las calorias
@@ -110,4 +120,32 @@ Description.value = '';
 Calories.value = '';
 Carbs.value = '';
 Proteinas.value = '';
+}
+
+const renderItems= () =>{
+  document.querySelector('tbody').innerHTML = ''
+
+  list.map((item, index) => {
+
+    const removeButton = tag({
+      tag: 'button',
+      attrs: {
+        class: 'btn btn-outline-danger',
+        onclick: `removeItem(${index})`
+      }
+    })(trashIcon)
+
+    const row = document.createElement('tr')
+
+    row.innerHTML = tableRow([
+      item.description,
+      item.calories,
+      item.carbs,
+      item.protein,
+      removeButton,
+    ])
+
+    document.querySelector('tbody').appendChild( row )
+  })
+
 }
