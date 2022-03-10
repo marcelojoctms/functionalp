@@ -34,7 +34,11 @@ const tag = t => {
   return tagAttrs(t)
 }
 
+const tableRowTag = tag('tr')
+const tableRow = items => compose(tableRowTag, tableCells)(items)
 
+const tableCell = tag('td')
+const tableCells = items => items.map(tableCell).join('')
 
 // VARIABLES DE LOS INPUTS
 let Description = document.getElementById('description');
@@ -44,10 +48,10 @@ let Proteinas = document.getElementById('protein');
 
 let list = [
     {
-      description: 'wewe',
-      calories: 'wewe',
-      carbs: 'wewe',
-      protein: 'wewe',
+      description: '',
+      calories: '',
+      carbs: '',
+      protein: '',
     }
 ]
 // VALORES DE LOS INPUTS
@@ -77,17 +81,30 @@ const add = () =>{ // hago un objeto con los datois que obtengo del form
 
   const newItem= {
     description: Description.value,
-    calories: Calories.value,
-    carbs: Carbs.value,
-    protein: Proteinas.value,
+    calories:  parseInt(Calories.value),
+    carbs:  parseInt(Carbs.value),
+    protein:  parseInt(Proteinas.value),
   }
 
   list.push(newItem);
   console.log(list)
   cleanInputs();
-  
+  updateTotals();
 }
 
+// esta funcion va a actualziar los valores de las calorias
+const updateTotals = ()=>{
+  let calories = 0 ,carbs = 0 , protein = 0
+  list.map(item =>{
+
+      calories += item.calories,
+      carbs += item.carbs,
+      protein += item.protein
+  })
+  document.getElementById('totalCalories').innerHTML = calories
+  document.getElementById('totalCarbs').innerHTML = carbs
+  document.getElementById('totalProtein').innerHTML = protein
+}
 const cleanInputs = () => {
 Description.value = '';
 Calories.value = '';
